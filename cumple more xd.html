@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código de Cumpleaños para More</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #38bdf8;
+            font-size: 28px;
+            margin: 0 0 10px 0;
+        }
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 16px;
+            margin: 0;
+        }
+        .card {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #334155;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #f43f5e;
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-left: 4px solid #f43f5e;
+            padding-left: 12px;
+        }
+        .instructions-list {
+            margin: 0;
+            padding-left: 20px;
+            color: #cbd5e1;
+        }
+        .instructions-list li {
+            margin-bottom: 10px;
+        }
+        .code-container {
+            background-color: #020617;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            border: 1px solid #334155;
+        }
+        pre {
+            margin: 0;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+        /* Estilos de colores del código */
+        .comment { color: #64748b; font-style: italic; }
+        .keyword { color: #f43f5e; font-weight: bold; }
+        .string { color: #10b981; }
+        .number { color: #f59e0b; }
+        .builtin { color: #38bdf8; }
+        .def { color: #a855f7; font-weight: bold; }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #64748b;
+            font-size: 14px;
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Script de Cumpleaños para More 🎂</h1>
+            <p class="subtitle">Código de diseño corregido y optimizado usando Python Turtle</p>
+        </div>
+
+        <div class="card">
+            <h2>✨ Instrucciones de Uso</h2>
+            <ul class="instructions-list">
+                <li>Asegúrate de tener instalado <strong>Python</strong> en tu sistema operativo.</li>
+                <li>Copia todo el contenido del bloque de código oscuro de abajo.</li>
+                <li>Guárdalo en un archivo de texto con el nombre <code>feliz_cumple_more.py</code>.</li>
+                <li>Ábrelo desde tu terminal o editor de código (como VS Code) y dale a ejecutar. ¡El pastel se dibujará automáticamente!</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>💻 Código en Python</h2>
+            <div class="code-container">
+<pre><span class="keyword">import</span> turtle
+
+<span class="comment"># Configuración inicial de la pantalla y la tortuga</span>
+t = turtle.Turtle()
+s = turtle.Screen()
+s.setup(width=<span class="number">800</span>, height=<span class="number">600</span>)
+s.bgcolor(<span class="string">"#FFF9E6"</span>)  <span class="comment"># Fondo amarillo pastel suave</span>
+t.pensize(<span class="number">3</span>)
+t.speed(<span class="number">8</span>)
+t.hideturtle()
+
+<span class="keyword">def</span> <span class="def">dibujar_rectangulo</span>(x, y, ancho, alto, color):
+    t.penup()
+    t.goto(x, y)
+    t.pendown()
+    t.color(color)
+    t.begin_fill()
+    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">2</span>):
+        t.forward(ancho)
+        t.left(<span class="number">90</span>)
+        t.forward(alto)
+        t.left(<span class="number">90</span>)
+    t.end_fill()
+
+<span class="comment"># --- 1. PRIMER PISO (Base - Marrón/Chocolate) ---</span>
+dibujar_rectangulo(-<span class="number">120</span>, -<span class="number">50</span>, <span class="number">240</span>, <span class="number">60</span>, <span class="string">"#5C2C16"</span>)
+
+<span class="comment"># --- 2. SEGUNDO PISO (Medio - Naranja/Zanahoria) ---</span>
+dibujar_rectangulo(-<span class="number">90</span>, <span class="number">10</span>, <span class="number">180</span>, <span class="number">50</span>, <span class="string">"#E67E22"</span>)
+
+<span class="comment"># --- 3. TERCER PISO (Superior - Magenta/Fresa) ---</span>
+dibujar_rectangulo(-<span class="number">60</span>, <span class="number">60</span>, <span class="number">120</span>, <span class="number">50</span>, <span class="string">"#E91E63"</span>)
+
+<span class="comment"># --- 4. LA VELA (Centrada en X=0) ---</span>
+t.penup()
+t.goto(-<span class="number">5</span>, <span class="number">110</span>)
+t.pendown()
+t.color(<span class="string">"#F1C40F"</span>)
+t.begin_fill()
+<span class="keyword">for</span> _ <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">2</span>):
+    t.forward(<span class="number">10</span>)
+    t.left(<span class="number">90</span>)
+    t.forward(<span class="number">30</span>)
+    t.left(<span class="number">90</span>)
+t.end_fill()
+
+<span class="comment"># --- 5. LA LLAMA DE LA VELA ---</span>
+t.penup()
+t.goto(<span class="number">0</span>, <span class="number">145</span>)
+t.pendown()
+t.color(<span class="string">"#FF5722"</span>)
+t.begin_fill()
+t.circle(<span class="number">7</span>)
+t.end_fill()
+
+<span class="comment"># --- 6. TEXTO DE FELICITACIÓN ---</span>
+t.penup()
+t.color(<span class="string">"#2C3E50"</span>)
+t.goto(<span class="number">0</span>, -<span class="number">120</span>)
+t.write(<span class="string">"¡Feliz Cumpleaños, More! 🎂"</span>, align=<span class="string">"center"</span>, font=(<span class="string">"Arial"</span>, <span class="number">24</span>, <span class="string">"bold"</span>))
+
+<span class="comment"># Mantener la ventana abierta</span>
+turtle.done()</pre>
+            </div>
+        </div>
+
+        <div class="footer">
+            Hecho con ❤️ para More
+        </div>
+    </div>
+
+</body>
+</html>
