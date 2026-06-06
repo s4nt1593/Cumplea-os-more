@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños More!</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #FFF9E6;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .cake-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .candle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            height: 46px;
+            width: 20px;
+        }
+
+        .flame {
+            width: 14px;
+            height: 14px;
+            background-color: #FF5722;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .candle {
+            width: 10px;
+            height: 30px;
+            background-color: #F1C40F;
+            border: 2px solid #000;
+            transform-origin: bottom center;
+            opacity: 0;
+        }
+
+        .cake-layer {
+            border: 3px solid #000;
+            border-bottom: none;
+            border-radius: 4px 4px 0 0;
+            transform-origin: bottom center;
+            opacity: 0;
+        }
+
+        .layer-3 {
+            width: 120px;
+            height: 50px;
+            background-color: #E91E63;
+        }
+
+        .layer-2 {
+            width: 180px;
+            height: 50px;
+            background-color: #E67E22;
+        }
+
+        .layer-1 {
+            width: 240px;
+            height: 60px;
+            background-color: #5C2C16;
+            border-bottom: 3px solid #000;
+        }
+
+        .message {
+            margin-top: 30px;
+            font-size: 26pt;
+            font-weight: bold;
+            color: #2C3E50;
+            text-align: center;
+            opacity: 0;
+        }
+
+        /* === Animaciones SOLO se activan después del clic === */
+        .cake-wrapper.ready .flame {
+            animation: ignite 0.5s ease-out forwards, flicker 0.6s ease-in-out infinite alternate;
+            animation-delay: 3.2s;
+        }
+
+        .cake-wrapper.ready .candle {
+            animation: drawElement 0.5s ease-out forwards;
+            animation-delay: 2.5s;
+        }
+
+        .cake-wrapper.ready .cake-layer {
+            animation: drawElement 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .cake-wrapper.ready .layer-3 {
+            animation-delay: 1.7s;
+        }
+
+        .cake-wrapper.ready .layer-2 {
+            animation-delay: 1.0s;
+        }
+
+        .cake-wrapper.ready .layer-1 {
+            animation-delay: 0.3s;
+        }
+
+        .cake-wrapper.ready .message {
+            animation: showText 1.2s ease-out forwards;
+            animation-delay: 3.8s;
+        }
+
+        @keyframes drawElement {
+            0% { opacity: 0; transform: scaleX(0) scaleY(0); }
+            50% { opacity: 1; transform: scaleX(1) scaleY(0.1); }
+            100% { opacity: 1; transform: scaleX(1) scaleY(1); }
+        }
+
+        @keyframes ignite {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1) translateY(0); background-color: #FF5722; box-shadow: 0 0 4px #FF9800; }
+            100% { transform: scale(1.15) translateY(-2px); background-color: #FF9800; box-shadow: 0 0 10px #FF5722; }
+        }
+
+        @keyframes showText {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Overlay */
+        #start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: pointer;
+        }
+
+        #start-overlay .content {
+            background-color: white;
+            padding: 35px 50px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            max-width: 320px;
+        }
+
+        #start-overlay h2 {
+            margin: 0 0 12px 0;
+            color: #E91E63;
+            font-size: 26px;
+        }
+
+        #start-overlay p {
+            margin: 0;
+            color: #555;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="background-audio" src="cum.mp3" loop preload="auto" muted></audio>
+
+    <!-- Overlay -->
+    <div id="start-overlay">
+        <div class="content">
+            <h2>🎂 ¡Feliz Cumpleaños More!</h2>
+            <p>Toca la pantalla para ver la sorpresa</p>
+        </div>
+    </div>
+
+    <div class="cake-wrapper">
+        <div class="candle-container">
+            <div class="flame"></div>
+            <div class="candle"></div>
+        </div>
+
+        <div class="cake-layer layer-3"></div>
+        <div class="cake-layer layer-2"></div>
+        <div class="cake-layer layer-1"></div>
+
+        <div class="message">¡Feliz Cumpleaños, More! 🎂ten un lindo dia <br>te quiero muchisimo eres una gran persona❤️ </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('background-audio');
+        const overlay = document.getElementById('start-overlay');
+        const cakeWrapper = document.querySelector('.cake-wrapper');
+
+        // Precargar el audio en silencio
+        audio.play().catch(() => {});
+
+        // Al hacer clic → activar animaciones + música
+        overlay.addEventListener('click', () => {
+            // Activar las animaciones del pastel
+            cakeWrapper.classList.add('ready');
+
+            // Activar música con sonido
+            audio.muted = false;
+            audio.play().catch(err => console.log('Error:', err));
+
+            // Ocultar overlay
+            overlay.style.transition = 'opacity 0.5s ease';
+            overlay.style.opacity = '0';
+
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        });
+    </script>
+
+</body>
+</html>
